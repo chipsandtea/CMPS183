@@ -1,0 +1,40 @@
+{{extend 'layout.html'}}
+
+<div class="post_listing center">
+{{if auth.user_id:}}
+    <div class="post_list_header text-right">
+        <a href="{{=URL('default', 'edit')}}" class="btn btn-warning">
+            <i class="fa fa-plus"></i> New Post
+        </a>
+    </div>
+{{else:}}
+    <div class="post_list_header text-right">
+        <a href="{{=URL('default', 'user', args=['login'])}}" class="btn btn-warning">Log In</a>
+    </div>
+{{pass}}
+
+    <div class="post_list">
+        {{if posts:}}
+            {{for p in posts:}}
+                <div class="post text-left">
+                    {{=p.post_content}}
+                    {{if auth.user:}}
+                        {{if auth.user.email == p.user_email:}}
+                    <a class="fa fa-pencil-square-o right" href="{{=URL('default', 'edit', args=[p.id])}}"> </a>
+                    {{pass}}
+                        {{pass}}
+
+                    <div class="post_bottom">
+                        {{=p.name}}
+                        {{=p.created_on}}
+                        {{if p.created_on - p.updated_on:}}
+                            <span class="update"> Edited on: {{=p.updated_on}}</span>
+                        {{else: pass}}
+                    </div>
+                </div>
+            {{pass}}
+        </div>
+        {{else:}}
+            <p align="center"> No Posts Found. </p>
+        {{pass}}
+</div>

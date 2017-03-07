@@ -1,0 +1,56 @@
+
+<html>
+
+<head>
+</head>
+{{extend 'layout.html'}}
+{{if auth.user_id:}}
+
+<h2>Hello, {{=db.auth_user[auth.user_id].first_name}}!</h2>
+
+<p class="lead">You are logged in. 
+   <br/>
+   <a href="{{=URL('default', 'create_post')}}" class="btn btn-default" role"button">make a post</a>
+   <a href="{{=URL('default', 'user', args=['logout'])}}" class="btn btn-danger" role"button">Log Out</a>
+</p>
+
+{{else:}}
+
+<h2>Hello!</h2>
+<p class="lead">Would you like to <a href="{{=URL('default', 'user', args=['login'])}}">Log In</a>? 
+</p>
+
+{{pass}}
+
+{{if post_count > 2:}}
+  <p>There are {{=post_count}} posts.</p>
+{{pass}}
+
+<p>Exciting, isn't it? </p>
+
+
+{{for post in first_ten:}}<li>
+  <div class="panel panel-primary">
+  <div class="panel-heading"><h4>#{{=post.index}} - {{=post.post_subject}}</h4></div>
+    <div class="panel-body">
+      <p> {{=post.post_content}}</p>
+      
+      
+    </div>
+    <div class="panel-footer">
+    <p>Last updated {{=post.updated_on}} by {{=db.auth_user[post.user_id].first_name}}</p>
+      {{if post.user_id==auth.user_id:}}
+        <a href="{{=URL('default', 'edit_post', args=[post.id])}}" class="btn btn-default" role"button">edit</a>
+      
+    </div>
+  </div>
+  
+
+
+  {{pass}}
+        
+</li>{{pass}}
+{{pass}}
+
+</html>
+

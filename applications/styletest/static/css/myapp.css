@@ -1,0 +1,17 @@
+/* line 1, ../sass/_main.scss */
+.colorful {
+  color: #bb8833;
+}
+
+/* line 5, ../sass/_main.scss */
+body {
+  font: 100% Helvetica, sans-serif;
+  color: #E72626;
+  background-color: lightblue;
+}
+
+/* line 11, ../sass/_main.scss */
+.advancedMaterial {
+  font: 80% Helvetica, sans-serif;
+  background-color: grey;
+}
